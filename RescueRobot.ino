@@ -3,6 +3,7 @@
 #include <HMC5883L.h>
 #include <motor.h>
 #include <compass.h>
+#include <selector.h>
 
 void gol(void);
 void gor(void);
