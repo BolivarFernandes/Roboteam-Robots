@@ -281,4 +281,3 @@ void pause(void)
     wait(0.5);
    }
 }
-
