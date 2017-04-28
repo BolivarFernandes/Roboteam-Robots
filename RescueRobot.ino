@@ -1,4 +1,9 @@
+#include <stdio.h>
+#include <math.h>
 #include <HMC5883L.h>
+#include <motor.h>
+#include <compass.h>
+
 void gol(void);
 void gor(void);
 void golr(void);
@@ -274,38 +279,5 @@ void pause(void)
     while(trigger()==1){cls();}
     wait(0.5);
    }
-}
-
-void motor(char pin,char pwmpin,int val)//argument pin is IO import，pwmpin is the IO port of PWM，val is the value of speed from 0 to 255
-{
-    pinMode(pin, OUTPUT);    
-  if(val>0)                             //when val >0, rotate clockwise
-  {  
-    analogWrite(pwmpin,val);
-    digitalWrite(pin,1);
-   }
-  else if(val<0)                     //when val <0, rotate counterclockwise
-{  
-   analogWrite(pwmpin,-val);
-   digitalWrite(pin,0);
-}
-else if(val==0)                     //when val = 0, stop
-{
-    analogWrite(pwmpin,0);
-    digitalWrite(pin,0);
-}
-}
-
-void compass(int degree)
-{
-  compass = HMC5883L();
-  compass.SetScale(1.3);
-  compass.SetMeasurementMode(Measurement_Continuous);
-  MagnetometerRaw raw = compass.ReadRawAxis();
-  MagnetometerScaled scaled = compass.ReadScaledAxis();
-  float xHeading = atan2(scaled.YAxis, scaled.XAxis);
-  if(xHeading < 0)    xHeading += 2*PI;
-  if(xHeading > 2*PI)    xHeading -= 2*PI;
-  float degree = xHeading * 180/M_PI;
 }
 
